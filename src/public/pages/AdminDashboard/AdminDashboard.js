@@ -2,18 +2,9 @@ import React from 'react'
 import NavbarComponent from '../../../components/NavbarComponent/NavbarComponent'
 import { Button, Form } from 'react-bootstrap'
 import { addNode, addEdge, addBus } from '../../../handlers/adminHandler'
+import { weekDays } from '../../../utils'
 
 export default function AdminDashboard() {
-    const weekDays = [
-        { name: 'Sunday', value: 0b1000000 },
-        { name: 'Monday', value: 0b0100000 },
-        { name: 'Tuesday', value: 0b0010000 },
-        { name: 'Wednesday', value: 0b0001000 },
-        { name: 'Thursday', value: 0b0000100 },
-        { name: 'Friday', value: 0b0000010 },
-        { name: 'Saturday', value: 0b0000001 },
-    ];
-
     const [busCapacity, setBusCapacity] = React.useState(0);
     const [selectedDays, setSelectedDays] = React.useState(0);
     const [nodeIds, setNodeIds] = React.useState([]);

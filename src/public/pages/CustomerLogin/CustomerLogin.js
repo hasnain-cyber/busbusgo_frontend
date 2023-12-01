@@ -2,10 +2,16 @@ import React from 'react'
 import NavbarComponent from '../../../components/NavbarComponent/NavbarComponent'
 import { Button } from 'react-bootstrap'
 import { loginCustomer } from '../../../handlers/customerHandler'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginCustomer as loginCustomerAction } from '../../../redux/slices/customerSlice';
 
 export default function CustomerLogin() {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
+
+    const router = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmitButton = async (e) => {
         console.log(process.env.REACT_APP_BACKEND_URL)
@@ -16,7 +22,10 @@ export default function CustomerLogin() {
 
         try {
             const response = await loginCustomer(email, password);
-            console.log("🚀 ~ file: CustomerLogin.js:19 ~ handleSubmitButton ~ response:", response)
+            if (response.status === 200) {
+                dispatch(loginCustomerAction(response.data));
+                router('/customerDashboard');
+            }
         } catch (error) {
             console.log(error);
             alert('Something went wrong !');
