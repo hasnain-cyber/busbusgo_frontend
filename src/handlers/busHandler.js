@@ -12,9 +12,19 @@ export const bookSeat = async (customer_id, bus_id, seat_id, start_node_id, end_
     console.log("🚀 ~ file: busHandler.js:12 ~ bookSeat ~ customer_id, bus_id, seat_id, start_node_id, end_node_id:", customer_id, bus_id, seat_id, start_node_id, end_node_id)
     return axios.post(`${process.env.REACT_APP_BACKEND_URL}/bus/bookSeat`, {
         customer_id,
-        bus_id, 
+        bus_id,
         seat_id,
         start_node_id,
         end_node_id
+    });
+}
+
+export const cancelSeat = async (customer_token, booking_id) => {
+    return axios.post(`${process.env.REACT_APP_BACKEND_URL}/bus/cancelSeat`, {
+        booking_id,
+    }, {
+        headers: {
+            "Authorization": `Bearer ${customer_token}`
+        },
     });
 }

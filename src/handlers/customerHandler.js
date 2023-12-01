@@ -14,9 +14,10 @@ export const loginCustomer = async (email, password) => {
     });
 }
 
-export const getCustomerBookings = async (customer_id) => {
-    return axios.post(`${process.env.REACT_APP_BACKEND_URL}/customer/getBookings`, {
-        customer_id
+export const getCustomerBookings = async (customer_token) => {
+    return axios.get(`${process.env.REACT_APP_BACKEND_URL}/customer/getBookings`, {
+        headers: {
+            "Authorization": `Bearer ${customer_token}`
+        }
     });
 }
-
