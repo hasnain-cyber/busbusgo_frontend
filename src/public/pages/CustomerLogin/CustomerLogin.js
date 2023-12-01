@@ -1,6 +1,6 @@
 import React from 'react'
 import NavbarComponent from '../../../components/NavbarComponent/NavbarComponent'
-import { Button } from 'react-bootstrap'
+import { Button, Container, Card } from 'react-bootstrap'
 import { loginCustomer } from '../../../handlers/customerHandler'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -35,11 +35,14 @@ export default function CustomerLogin() {
     return (
         <>
             <NavbarComponent />
-            <div className='d-flex flex-column gap-2'>
-                <input type='text' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
-                <Button onClick={handleSubmitButton}>Login</Button>
-            </div>
+            <Container className='d-flex justify-content-center align-items-center' style={{ height: '100vh' }}>
+                <Card className='px-4 h-50 w-30 d-flex justify-content-center gap-4 shadow-lg'>
+                    <h1 className='text-center text-primary mb-5'>Customer Login</h1>
+                    <input type='text' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <Button onClick={handleSubmitButton}>Login</Button>
+                </Card>
+            </Container>
         </>
     )
 }

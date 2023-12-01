@@ -1,6 +1,6 @@
 import React from 'react'
 import NavbarComponent from '../../../components/NavbarComponent/NavbarComponent'
-import { Button } from 'react-bootstrap'
+import { Button, Container, Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginAdmin } from '../../../handlers/adminHandler';
@@ -40,11 +40,20 @@ export default function AdminLogin() {
     return (
         <>
             <NavbarComponent />
-            <div className='d-flex flex-column gap-2'>
+            {/* Write the following div in a container of 100vh with a react-bootstrap card between to login */}
+            {/* <div className='d-flex flex-column gap-2'>
                 <input type='text' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
                 <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
                 <Button onClick={handleSubmitButton}>Login</Button>
-            </div>
+            </div> */}
+            <Container className='d-flex justify-content-center align-items-center' style={{ height: '100vh' }}>
+                <Card className='px-4 h-50 w-25 d-flex justify-content-center gap-4 shadow-lg'>
+                    <h1 className='text-center text-primary mb-5'>Admin Login</h1>
+                    <input type='text' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <Button onClick={handleSubmitButton}>Login</Button>
+                </Card>
+            </Container>
         </>
     )
 }
