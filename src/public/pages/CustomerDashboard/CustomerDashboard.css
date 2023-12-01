@@ -1,0 +1,18 @@
+.seat {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.available {
+  background-color: green;
+  color: white;
+}
+
+.occupied {
+  background-color: red;
+  color: white;
+}
