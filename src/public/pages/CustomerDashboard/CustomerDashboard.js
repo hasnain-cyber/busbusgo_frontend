@@ -59,7 +59,7 @@ const AvailableBus = (bus, start_node_id, end_node_id, customer_id) => {
     const { occupied_seats, capacity, _id } = bus;
     const n_occupied_seats = occupied_seats.filter(seat => seat).length;
 
-    const occupied_percentage = (n_occupied_seats / capacity) * 100;
+    const occupied_percentage = Math.floor((n_occupied_seats / capacity) * 100);
     let bus_color = 'success';
     if (occupied_percentage > 60) bus_color = 'warning';
     if (occupied_percentage > 90) bus_color = 'danger';
@@ -74,6 +74,7 @@ const AvailableBus = (bus, start_node_id, end_node_id, customer_id) => {
 
         try {
             const response = await bookSeat(customer_id, _id, seat_number, start_node_id, end_node_id);
+            alert("Seat booked successfully");
             console.log("🚀 ~ file: AdminDashboard.js:10 ~ handleClickBookButton ~ response:", response)
         } catch (err) {
             console.log(err);
@@ -106,6 +107,7 @@ const MyBooking = (booking, customer_token) => {
 
         try {
             const response = await cancelSeat(customer_token, _id);
+            alert("Seat cancelled successfully");
             console.log("🚀 ~ file: AdminDashboard.js:10 ~ handleClickBookButton ~ response:", response)
         } catch (err) {
             console.log(err);

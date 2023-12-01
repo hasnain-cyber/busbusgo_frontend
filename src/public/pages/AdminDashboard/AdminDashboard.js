@@ -1,6 +1,6 @@
 import React from 'react'
 import NavbarComponent from '../../../components/NavbarComponent/NavbarComponent'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Card, Container } from 'react-bootstrap'
 import { addNode, addEdge, addBus } from '../../../handlers/adminHandler'
 import { weekDays } from '../../../utils'
 
@@ -51,6 +51,7 @@ export default function AdminDashboard() {
 
         try {
             const response = await addBus(busCapacity, selectedDays, nodeIds);
+            alert("Bus added successfully");
             console.log("🚀 ~ file: AdminDashboard.js:10 ~ handleClickSubmitButton ~ response:", response)
         } catch (err) {
             console.log(err);
@@ -60,43 +61,63 @@ export default function AdminDashboard() {
     return (
         <>
             <NavbarComponent />
-            <div className='d-flex justify-content-end gap-2'>
-                <Button onClick={handleClickAddNode}>Add Node</Button>
-                <Button onClick={handleClickAddEdge}>Add Edge</Button>
+            <div className='d-flex justify-content-end gap-2 p-5'>
+                <Button variant='dark' onClick={handleClickAddNode}>Add Node</Button>
+                <Button variant='dark' onClick={handleClickAddEdge}>Add Edge</Button>
             </div>
             
-            {/* add bus section */}
-            <div className='d-flex flex-column gap-1'>
-                <input type="number" placeholder="Bus Capacity" onChange={(e) => setBusCapacity(e.target.value)} />
-                <Form>
-                    {weekDays.map((day) => (
-                        <Form.Check
-                            key={day.name}
-                            type="checkbox"
-                            id={day.name}
-                            label={day.name}
-                            value={day.value.toString(2)} // Represent the value in binary string format
-                            checked={(selectedDays & day.value) === day.value} // Check if the bit is set
-                            onChange={handleDayChange}
-                        />
-                    ))}
-                </Form>
-            </div>
-            
-            <Form.Group controlId="nodeIds">
-                <Form.Label>Route</Form.Label>
-                <Form.Control
-                    as="textarea"
-                    rows={5}
-                    placeholder="Enter node IDs separated by space"
-                    value={nodeIds}
-                    onChange={handleTextareaChange}
-                />
-            </Form.Group>
+            <Container className='mt-2'>
 
-            <Button variant="primary" onClick={handleClickSubmitButton}>
-                Add Bus
-            </Button>
+                <h1 className='fs-3 mb-3 text-uppercase'>Add new bus</h1>
+                <Card className='p-4 shadow-lg gap-4'>
+                    <Form.Group controlId="busCapacity">
+                        <Form.Label>Bus Capacity</Form.Label>
+                        <input
+                            type="number"
+                            className='form-control'
+                            placeholder="Enter Bus Capacity"
+                            onChange={(e) => setBusCapacity(e.target.value)}
+                        />
+                    </Form.Group>
+
+                    <Form.Group controlId="selectedDays">
+                        <Form.Label>Weekdays</Form.Label>
+                        <div className="d-flex gap-4">
+                            {weekDays.map((day) => (
+                                <div key={day.name} className="mr-3">
+                                    <Form.Check
+                                        type="checkbox"
+                                        id={day.name}
+                                        label={day.name}
+                                        value={day.value.toString(2)} // Represent the value in binary string format
+                                        checked={(selectedDays & day.value) === day.value} // Check if the bit is set
+                                        onChange={handleDayChange}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </Form.Group>
+
+                    <Form.Group controlId="nodeIds">
+                        <Form.Label>Route (Node IDs)</Form.Label>
+                        <Form.Control
+                            as="textarea"
+                            rows={5}
+                            className='form-control'
+                            placeholder="Enter node IDs separated by space"
+                            value={nodeIds}
+                            onChange={handleTextareaChange}
+                        />
+                    </Form.Group>
+
+                    <div className='d-flex justify-content-center'>
+                        <Button variant="dark" onClick={handleClickSubmitButton}>
+                            Add Bus
+                        </Button>
+                    </div>
+                </Card>
+
+            </Container>
         </>
     )
 }
